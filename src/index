@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find My Aircraft</title>
+  <!-- Leaflet.js for the interactive map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Our own CSS -->
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header id="navbar">
+    <div id="logo">
+      <span>✈</span>
+      <h1>Find My Aircraft</h1>
+    </div>
+    <div id="search-container">
+      <input type="text" id="search-input" placeholder="Search flight number e.g. BA123" />
+      <button id="search-btn">Search</button>
+    </div>
+    <button id="login-btn">Login</button>
+  </header>
+
+  <!-- MAP CONTAINER — Leaflet will render inside this div -->
+  <div id="map"></div>
+
+  <!-- FLIGHT INFO PANEL — hidden until a flight is found -->
+  <div id="flight-panel" class="hidden">
+    <h2 id="panel-flight-number">Flight</h2>
+    <p>Altitude: <span id="panel-altitude">–</span> ft</p>
+    <p>Speed: <span id="panel-speed">–</span> knots</p>
+    <p>Destination: <span id="panel-destination">–</span></p>
+    <button id="close-panel">✕</button>
+  </div>
+
+  <!-- BOTTOM TOOLBAR -->
+  <footer id="toolbar">
+    <button class="toolbar-btn" id="btn-settings">⚙ Settings</button>
+    <button class="toolbar-btn" id="btn-weather">🌤 Weather</button>
+    <button class="toolbar-btn" id="btn-filters">🔍 Filters</button>
+  </footer>
+
+  <!-- SETTINGS POP-UP -->
+  <div id="settings-popup" class="popup hidden">
+    <h3>Settings</h3>
+    <label><input type="checkbox" id="toggle-planes"> Hide all plane icons</label>
+    <label><input type="checkbox" id="toggle-hud"> Hide HUD</label>
+    <label>Brightness
+      <input type="range" id="brightness-slider" min="50" max="150" value="100">
+    </label>
+    <label>Plane size
+      <input type="range" id="plane-size-slider" min="10" max="40" value="20">
+    </label>
+    <button class="close-popup">Close</button>
+  </div>
+
+  <!-- WEATHER POP-UP -->
+  <div id="weather-popup" class="popup hidden">
+    <h3>Weather</h3>
+    <input type="text" id="weather-location" placeholder="Enter location..." />
+    <button id="weather-search-btn">Get Weather</button>
+    <div id="weather-results">
+      <p>Wind speed: <span id="wind-speed">–</span></p>
+      <p>Conditions: <span id="conditions">–</span></p>
+    </div>
+    <button class="close-popup">Close</button>
+  </div>
+
+  <!-- FILTERS POP-UP -->
+  <div id="filters-popup" class="popup hidden">
+    <h3>Filters</h3>
+    <label><input type="checkbox" checked id="filter-commercial"> Commercial</label>
+    <label><input type="checkbox" checked id="filter-private"> Private</label>
+    <label><input type="checkbox" checked id="filter-cargo"> Cargo</label>
+    <label>Range (km): <span id="range-display">500</span>
+      <input type="range" id="range-slider" min="50" max="2000" value="500">
+    </label>
+    <button class="close-popup">Close</button>
+  </div>
+
+  <!-- Leaflet.js Library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Our JavaScript modules — loaded in order -->
+  <script src="scripts/map.js"></script>
+  <script src="scripts/search.js"></script>
+  <script src="scripts/panels.js"></script>
+  <script src="scripts/settings.js"></script>
+  <script src="scripts/weather.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
