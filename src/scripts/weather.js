@@ -39,6 +39,5 @@ function getWeatherDescription(code) {
 }
 
 function initWeather() {
-  const btn = document.getElementById('weather-search-btn');
-  if (btn) btn.addEventListener('click', fetchWeather);
+  document.getElementById('weather-search-btn').addEventListener('click', fetchWeather);
 }
