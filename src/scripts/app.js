@@ -5,5 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initSettings();
   initSearch();
   initWeather();
+  initLogin();
   console.log("Initialisation complete.");
 });
