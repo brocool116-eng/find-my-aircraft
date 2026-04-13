@@ -2,22 +2,22 @@ let currentAircraftData = [];
 
 async function fetchLiveAircraft() {
   try {
-    const response = await fetch('https://opensky-network.org/api/states/all?lamin=49.5&lomin=-8.0&lamax=61.0&lomax=2.0');
+    const response = await fetch('https://api.adsb.lol/v2/lat/54.5/lon/-3.0/dist/500');
     if (!response.ok) throw new Error('API error');
     const data = await response.json();
-    currentAircraftData = data.states
-      .filter(s => s[5] && s[6])
-      .map(s => ({
-        flightNumber: (s[1] || 'Unknown').trim(),
-        latitude: s[6],
-        longitude: s[5],
-        altitude: s[7] ? Math.round(s[7] * 3.281) : 0,
-        speed: s[9] ? Math.round(s[9] * 1.944) : 0,
+    currentAircraftData = data.ac
+      .filter(a => a.lat && a.lon)
+      .map(a => ({
+        flightNumber: (a.flight || a.hex || 'Unknown').trim(),
+        latitude: a.lat,
+        longitude: a.lon,
+        altitude: a.alt_baro ? Math.round(a.alt_baro) : 0,
+        speed: a.gs ? Math.round(a.gs) : 0,
         destination: 'N/A'
       }));
-    console.log('Loaded ' + currentAircraftData.length + ' aircraft from OpenSky');
+    console.log('Loaded ' + currentAircraftData.length + ' aircraft from ADSB.lol');
   } catch (err) {
-    console.warn('OpenSky fetch failed, using dummy data:', err);
+    console.warn('ADSB fetch failed, using dummy data:', err);
     currentAircraftData = [
       { flightNumber: 'BA123', latitude: 51.5, longitude: -0.1, altitude: 35000, speed: 480, destination: 'JFK' },
       { flightNumber: 'EZY456', latitude: 53.4, longitude: -2.2, altitude: 28000, speed: 420, destination: 'BCN' },
